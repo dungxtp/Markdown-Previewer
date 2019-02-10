@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import marked from 'marked'
+// import marked from 'marked'
 
 class App extends React.Component {
   constructor(props) {
@@ -20,11 +20,26 @@ class App extends React.Component {
     return (
       <div id="container">
         <textarea class="split left" id="editor"value={this.state.input} input={this.state.input} onChange={this.handleChange}/>
-        <div class="split right" id="preview" dangerouslySetInnerHTML={{ __html: marked(this.state.input)}}></div>
+        <div class="split right" id="preview" dangerouslySetInnerHTML={{ __html: myMarked(this.state.input)}}></div>
       </div>
     );
   }
 }
+
+// Create reference instance
+var myMarked = require('marked');
+
+// Set options
+// `highlight` example uses `highlight.js`
+myMarked.setOptions({
+  renderer: new myMarked.Renderer(),
+  // highlight: function(code) {
+  //   return require('highlight.js').highlightAuto(code).value;
+  // },
+
+  tables: true,
+  breaks: true
+});
 
 const placeholder = 
 `# Welcome to my React Markdown Previewer!
