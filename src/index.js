@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import marked from 'marked'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,9 +17,11 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div id="container">
-        <textarea class="split left" id="editor"value={this.state.input} input={this.state.input} onChange={this.handleChange}/>
-        <div class="split right" id="preview" dangerouslySetInnerHTML={{ __html: myMarked(this.state.input)}}></div>
+      <div className="row">
+          <p className="col-md-6 d-none d-lg-block"><strong># Markdown</strong></p>
+          <p className="col-md-6 d-none d-lg-block"><strong># Preview</strong></p>
+          <textarea className="col-lg-6" id="editor" rows="10" value={this.state.input} input={this.state.input} onChange={this.handleChange}/>
+          <div className="col-lg-6 bg-light" id="preview" dangerouslySetInnerHTML={{ __html: myMarked(this.state.input)}}></div>
       </div>
     );
   }
@@ -33,10 +34,10 @@ var myMarked = require('marked');
 // `highlight` example uses `highlight.js`
 myMarked.setOptions({
   renderer: new myMarked.Renderer(),
-  // highlight: function(code) {
-  //   return require('highlight.js').highlightAuto(code).value;
-  // },
-
+  highlight: function(code) {
+    return require('highlight.js').highlightAuto(code).value;
+  },
+  gfm: true,
   tables: true,
   breaks: true
 });
